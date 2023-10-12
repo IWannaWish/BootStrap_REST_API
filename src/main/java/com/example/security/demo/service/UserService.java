@@ -6,10 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
 
-public interface UserService extends UserDetailsService {
-    User findByUsername(String username);
-
-    UserDetails loadUserByUsername(String username);
+public interface UserService {
 
     List<User> getAllUsers();
     User getUserById(Long id);

@@ -4,6 +4,7 @@ import com.example.security.demo.model.User;
 import com.example.security.demo.service.RoleService;
 import com.example.security.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,13 +14,13 @@ import org.springframework.web.bind.annotation.*;
 public class AdminController {
     private final UserService userService;
     private final RoleService roleService;
-    private final static  String START_PAGE = "\"redirect:/admin\"";
 
     @Autowired
-    public AdminController(UserService userService, RoleService roleService, PasswordEncoder passwordEncoder) {
+    public AdminController(UserService userService, RoleService roleService) {
         this.userService = userService;
         this.roleService = roleService;
     }
+
     @GetMapping("/user/{id}")
     public String getById(@PathVariable("id") Long id, Model model) {
         model.addAttribute("user", userService.getUserById(id));
@@ -62,13 +63,6 @@ public class AdminController {
         userService.delete(id);
         return "redirect:/admin";
     }
-
-
-
-
-
-
-
 
 
 //
