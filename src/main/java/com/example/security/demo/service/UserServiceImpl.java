@@ -3,9 +3,6 @@ package com.example.security.demo.service;
 import com.example.security.demo.model.User;
 import com.example.security.demo.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,14 +15,11 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder encoder;
 
-
     @Autowired
     public UserServiceImpl(UserRepository userRepository, PasswordEncoder encoder) {
         this.userRepository = userRepository;
         this.encoder=encoder;
     }
-
-
 
     @Transactional(readOnly = true)
     @Override
@@ -37,6 +31,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserById(Long id) {
         return userRepository.findById(id).orElseThrow(() -> new NullPointerException("Значение не найдено в базе данных"));
+    }
+
+    @Override
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 
     @Override
@@ -52,7 +51,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void update(User user) {
-        user.setPassword(encoder.encode(user.getPassword()));
         userRepository.save(user);
     }
 

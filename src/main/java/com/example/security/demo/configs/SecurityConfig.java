@@ -1,6 +1,5 @@
 package com.example.security.demo.configs;
 
-import com.example.security.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -14,24 +13,40 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserDetailsService userService;
+    private final SuccessUserHandler userHandler;
 
 
     @Autowired
-    public SecurityConfig(UserDetailsService userService) {
-
+    public SecurityConfig(UserDetailsService userService, SuccessUserHandler userHandler) {
+        this.userHandler = userHandler;
         this.userService = userService;
     }
 
     //Security config
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests()
-                .antMatchers("/users1").authenticated()//all page for authenticated user
-//                .antMatchers("/admin/**").hasAnyRole("ADMIN") // pages for admin
+        http
+                .authorizeRequests()
+                .antMatchers("/", "/index").permitAll()
+                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/user/**").hasAnyRole("USER","ADMIN")
+                .anyRequest().authenticated()
                 .and()
-                .formLogin()
+                .formLogin().successHandler(userHandler)
+                .permitAll()
                 .and()
-                .logout().logoutSuccessUrl("/");
+                .logout()
+                .logoutUrl("/logout").logoutSuccessUrl("/login")
+                .permitAll()
+                .and()
+                .csrf().disable();
+//        http.authorizeHttpRequests()
+//                .antMatchers("/admin").authenticated()//all page for authenticated user
+////                .antMatchers("/admin/**").hasAnyRole("ADMIN") // pages for admin
+//                .and()
+//                .formLogin()
+//                .and()
+//                .logout().logoutSuccessUrl("/");
     }
 
     //In Memory
