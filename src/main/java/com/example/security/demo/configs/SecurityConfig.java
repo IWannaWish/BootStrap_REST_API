@@ -29,7 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/", "/index").permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/user/**").hasAnyRole("USER","ADMIN")
+                .antMatchers("/user/**").hasAnyRole("USER", "ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().successHandler(userHandler)
@@ -40,59 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .csrf().disable();
-//        http.authorizeHttpRequests()
-//                .antMatchers("/admin").authenticated()//all page for authenticated user
-////                .antMatchers("/admin/**").hasAnyRole("ADMIN") // pages for admin
-//                .and()
-//                .formLogin()
-//                .and()
-//                .logout().logoutSuccessUrl("/");
     }
-
-    //In Memory
-//    @Bean
-//    public UserDetailsService users(){
-//        UserDetails user = User.builder()
-//                .username("user")
-//                .password("{bcrypt}$2a$12$14GUCyO2/EPo4s3n1DknF.MW9hnpQaCG00CRjsOUEx90iCjnndWQ.")
-//                .roles("USER")
-//                .build();
-//        UserDetails admin = User.builder()
-//                .username("admin")
-//                .password("{bcrypt}$2a$12$14GUCyO2/EPo4s3n1DknF.MW9hnpQaCG00CRjsOUEx90iCjnndWQ.")
-//                .roles("USER", "ADMIN")
-//                .build();
-//        return new InMemoryUserDetailsManager(user, admin);
-//    }
-
-    //    JDBC Authentication
-//    @Bean
-//    public JdbcUserDetailsManager users(DataSource dataSource) {
-//        UserDetails user = User.builder()
-//                .username("user")
-//                .password("{bcrypt}$2a$12$14GUCyO2/EPo4s3n1DknF.MW9hnpQaCG00CRjsOUEx90iCjnndWQ.")
-//                .roles("USER")
-//                .build();
-//        UserDetails admin = User.builder()
-//                .username("admin")
-//                .password("{bcrypt}$2a$12$14GUCyO2/EPo4s3n1DknF.MW9hnpQaCG00CRjsOUEx90iCjnndWQ.")
-//                .roles("USER", "ADMIN")
-//                .build();
-//
-//        JdbcUserDetailsManager users = new JdbcUserDetailsManager(dataSource);
-//        if (users.userExists(user.getUsername())) {
-//            users.deleteUser(user.getUsername());
-//        }
-//        if (users.userExists(admin.getUsername())) {
-//            users.deleteUser(admin.getUsername());
-//        }
-//        users.createUser(user);
-//        users.createUser(admin);
-//        return users;
-//    }
-
-
-    //    DAO authentication provider
     @Bean
     public DaoAuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
