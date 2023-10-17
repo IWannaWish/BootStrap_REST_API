@@ -56,6 +56,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void update(User user) {
+        user.setPassword(encoder.encode(user.getPassword()));
         userRepository.save(user);
     }
 

@@ -98,9 +98,10 @@
         </div>
         <br/>
         <div class="field">
-            <label for="password">Your BCryptPassword: </label>
-            <input type="text" th:field="*{password}" id="password" readonly="readonly"/>
+            <label for="password">Enter new password:</label>
+            <input type="password" th:field="*{password}" id="password" required/>
         </div>
+
         <br/>
         <div class="field">
             <label for="email">Enter email: </label>
