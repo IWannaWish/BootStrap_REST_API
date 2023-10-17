@@ -20,19 +20,19 @@ public class AdminController {
     }
 
     @GetMapping("/user/{id}")
-    public String getById(@PathVariable("id") Long id, Model model) {
+    public String getUserPage(@PathVariable("id") Long id, Model model) {
         model.addAttribute("user", userService.getUserById(id));
         return "/user";
     }
 
     @GetMapping(value = "/admin")
-    public String getStartPage(Model model) {
+    public String getAdminPage(Model model) {
         model.addAttribute("users", userService.getAllUsers());
         return "welcome";
     }
 
     @GetMapping("/user/{id}/edit")
-    public String edit(Model model, @PathVariable("id") Long id, Model roles) {
+    public String getEditPage(Model model, @PathVariable("id") Long id, Model roles) {
         roles.addAttribute("listRoles", roleService.findAll());
         model.addAttribute("user", userService.getUserById(id));
         return "edit";
@@ -45,19 +45,19 @@ public class AdminController {
     }
 
     @GetMapping("/new")
-    public String createNewUser(@ModelAttribute("user") User user, Model model) {
+    public String getNewUserPage(@ModelAttribute("user") User user, Model model) {
         model.addAttribute("listRoles", roleService.findAll());
         return "new";
     }
 
     @PostMapping("/user")
-    public String create(@ModelAttribute("user") User user) {
+    public String createUser(@ModelAttribute("user") User user) {
         userService.save(user);
         return "redirect:/admin";
     }
 
     @DeleteMapping("/{id}")
-    public String deleteUser(@PathVariable("id") Long id) {
+    public String deleteUserById(@PathVariable("id") Long id) {
         userService.delete(id);
         return "redirect:/admin";
     }
