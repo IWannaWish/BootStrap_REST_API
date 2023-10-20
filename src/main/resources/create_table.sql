@@ -25,9 +25,6 @@ values
     ('ROLE_USER'), ('ROLE_ADMIN');
 insert into users (username,password,email)
 values ('admin', '$2a$12$z0y8ACHkKW2hxyupp9xUvOTIB7iEzOIqJRJIeQo19rLCOj8DbbTUG','admin@gmail.com');
---password = admin
+# password = admin
 insert into users_roles (user_id, role_id) value (1,2);
 
-select * from users;
-select * from users_roles;
-select * from roles;
