@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.security.Principal;
 
 @Controller
 public class AdminController {
@@ -21,22 +24,26 @@ public class AdminController {
 
     @GetMapping("/user/{id}")
     public String getUserPage(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("user", userService.getUserById(id));
+        model.addAttribute("user", userService.findById(id));
         return "/user";
     }
 
     @GetMapping(value = "/admin")
-    public String getAdminPage(Model model) {
+    public String getAdminPage(Model model, Principal principal) {
         model.addAttribute("users", userService.getAllUsers());
+        model.addAttribute("allRoles", roleService.findAll());
+        model.addAttribute("username", principal.getName());
+        model.addAttribute("role", userService.findByUsername(principal.getName()).getRoles());
         return "welcome";
     }
 
     @GetMapping("/user/{id}/edit")
     public String getEditPage(Model model, @PathVariable("id") Long id, Model roles) {
         roles.addAttribute("listRoles", roleService.findAll());
-        model.addAttribute("user", userService.getUserById(id));
+        model.addAttribute("user", userService.findById(id));
         return "edit";
     }
+
 
     @PatchMapping("/user/{id}")
     public String updateUser(@ModelAttribute("user") User user) {

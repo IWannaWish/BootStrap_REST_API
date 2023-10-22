@@ -28,3 +28,9 @@ values ('admin', '$2a$12$z0y8ACHkKW2hxyupp9xUvOTIB7iEzOIqJRJIeQo19rLCOj8DbbTUG',
 # password = admin
 insert into users_roles (user_id, role_id) value (1,2);
 
+insert into users (username,password,email)
+values ('user', '$2a$12$PjFUteSpp1fxc28.xiXCvOefO1caAOuFGW.4TAsYwUea.6NDQ75pO','user@gmail.com');
+# password = admin
+insert into users_roles (user_id, role_id) value (2,1);
+
+
