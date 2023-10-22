@@ -7,6 +7,14 @@
     <title>Admin</title>
     <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet">
+    <script>
+        $(document).ready(function () {
+            $('#nav-new_user-tab').click(function () {
+                $('#nav-new_user').tab('show');
+            });
+        });
+
+    </script>
 </head>
 <body>
 <!--Шапка с логином и ролями-->
@@ -186,83 +194,82 @@
                                         </div>
 
 
-                                        <!-- Модальное окно Delete-->
-                                        <div class="modal fade"
-                                             id="deleteModal"
+                                        <!-- Модальное окно Delete -->
+                                        <div class="modal fade" id="deleteModal"
                                              th:id="${'deleteModal'+user.getId()}"
-                                             tabindex="-1"
-                                             role="dialog"
-                                             aria-labelledby="deleteModalLabel"
+                                             tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
                                              aria-hidden="false">
+                                            <div class="modal-dialog modal-dialog-scrollable">
+                                                <div class="modal-content">
+
+                                                    <!-- Заголовок модального окна Delete -->
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Delete user</h5>
+                                                        <button class="btn-close"
+                                                                data-bs-dismiss="modal"
+                                                                type="button" aria-label="Close"></button>
+                                                    </div>
+
+                                                    <!-- Тело модального окна Delete -->
+                                                    <form th:action="@{/admin/{id}(id=${user.getId()})}"
+                                                          th:method="DELETE"
+                                                          th:object="${user}">
+                                                        <div class="modal-body text-center">
 
 
-                                            <!-- Содержимое модального окна -->
 
-                                            <!-- Заголовок модального окна Delete-->
-                                            <div class="modal-header">
-                                                <h4 class="modal-title">Delete user</h4>
-                                                <button aria-label="Close" class="btn-close"
-                                                        data-dismiss="modal"
-                                                        type="button"></button>
-                                            </div>
-
-                                            <!-- Тело модального окна Delete-->
-                                            <div class="modal-body text-center">
-                                                <div class="d-flex container">
-                                                    <div class="row">
-                                                        <form th:method="DELETE"
-                                                              th:action="@{/admin/{id}(id=${user.getId()})}"
-                                                              th:object="${user}">
-                                                            <br>
-
-                                                            <!-- Все поля будут disabled для корректирования-->
+                                                            <!---Поле Id будет отображаться, но не будет доступно для корректировки-->
                                                             <label for="delete-id"><b>Id</b></label>
                                                             <input class="form-control"
                                                                    id="delete-id"
-                                                                   th:name="id" th:type="text"
+                                                                   th:name="id"
+                                                                   th:type="text"
                                                                    th:value="${user.getId()}" disabled/>
-                                                            <br>
+
 
                                                             <label for="delete-email"><b>Email</b></label>
-                                                            <input class="form-control"
-                                                                   id="delete-email"
+                                                            <input class="form-control" id="delete-email"
                                                                    th:name="email"
                                                                    th:type="text"
                                                                    th:value="${user.getEmail()}" disabled/>
-                                                            <br>
+
 
                                                             <label for="delete-username"><b>Login</b></label>
-                                                            <input class="form-control"
-                                                                   id="delete-username"
+                                                            <input class="form-control" id="delete-username"
                                                                    th:name="username"
                                                                    th:type="text"
                                                                    th:value="${user.getUsername()}" disabled/>
 
-                                                            <!-- Подвал модального окна -->
-                                                            <div class="modal-footer text-end">
+
+
+                                                            <!-- Подвал модального окна Delete -->
+                                                            <div class="modal-footer">
                                                                 <button class="btn btn-secondary"
-                                                                        data-bs-dismiss="modal"
+                                                                        data-dismiss="modal"
                                                                         type="button">Close
                                                                 </button>
-                                                                <input class="btn btn-primary" type="submit"
-                                                                       value="Delete"/>
+                                                                <button class="btn btn-danger" type="submit"
+                                                                        value="Delete">Delete
+                                                                </button>
                                                             </div>
-                                                        </form>
-                                                    </div>
+                                                        </div>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
+
+
+
                                     </tr>
                                     </tbody>
                                 </table>
-
 
 
                                 <!-- NEW USER-->
                                 <div class="tab-pane fade" id="nav-new_user"
                                      aria-labelledby="nav-new_user-tab"
                                      role="tabpanel">
-                                    role="tabpanel">
+                                     role="tabpanel">
 
                                     <h3><b>New user</b></h3>
                                     <!-- "d-flex" элементы в ряд, "justify-content-center" выравнивает по центру горизонтально, "align-items-center" - по центру вертикально-->
@@ -273,8 +280,6 @@
                                                     <form th:method="POST"
                                                           th:action="@{/new}"
                                                           th:object="${user}">
-
-
 
                                                         <label for="create-email"><b>Email</b></label>
                                                         <input class="form-control" id="create-email"
@@ -313,17 +318,25 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
-                                <script crossorigin="anonymous"
-                                        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-                                        src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-                                <script crossorigin="anonymous"
-                                        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-                                        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-                                <script crossorigin="anonymous"
-                                        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-                                        src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script crossorigin="anonymous"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script crossorigin="anonymous"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script crossorigin="anonymous"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 
 </body>

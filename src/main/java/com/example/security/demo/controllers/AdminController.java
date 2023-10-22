@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
 
@@ -36,6 +35,9 @@ public class AdminController {
         model.addAttribute("allRoles", roleService.findAll());
         model.addAttribute("username", principal.getName());
         model.addAttribute("role", userService.findByUsername(principal.getName()).getRoles());
+
+
+
         return "welcome";
     }
 
@@ -54,16 +56,18 @@ public class AdminController {
     }
 
     @GetMapping("/new")
-    public String getNewUserPage(@ModelAttribute("user") User user) {
-        userService.save(user);
+    public String getNewUserPage(Model model, User user) {
+        model.addAttribute("user", new User());
+        model.addAttribute("roles", roleService.findAll());
         return REDIRECT;
     }
-
-    @PostMapping("/user")
+    @PostMapping("/new")
     public String createUser(@ModelAttribute("user") User user) {
         userService.save(user);
         return REDIRECT;
     }
+
+
 
     @DeleteMapping("admin/{id}")
     public String deleteUserById(@PathVariable("id") Long id) {
