@@ -30,7 +30,6 @@ insert into users_roles (user_id, role_id) value (1,2);
 
 insert into users (username,password,email)
 values ('user', '$2a$12$PjFUteSpp1fxc28.xiXCvOefO1caAOuFGW.4TAsYwUea.6NDQ75pO','user@gmail.com');
-# password = admin
-insert into users_roles (user_id, role_id) value (2,1);
+insert into users_roles (user_id, role_id) value (3,1);
 
 

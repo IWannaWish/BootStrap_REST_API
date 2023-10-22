@@ -15,6 +15,8 @@ import java.security.Principal;
 public class AdminController {
     private final UserService userService;
     private final RoleService roleService;
+    private static final String REDIRECT = "redirect:/admin";
+
 
     @Autowired
     public AdminController(UserService userService, RoleService roleService) {
@@ -48,24 +50,24 @@ public class AdminController {
     @PatchMapping("/user/{id}")
     public String updateUser(@ModelAttribute("user") User user) {
         userService.update(user);
-        return "redirect:/admin";
+        return REDIRECT;
     }
 
     @GetMapping("/new")
-    public String getNewUserPage(@ModelAttribute("user") User user, Model model) {
-        model.addAttribute("listRoles", roleService.findAll());
-        return "new";
+    public String getNewUserPage(@ModelAttribute("user") User user) {
+        userService.save(user);
+        return REDIRECT;
     }
 
     @PostMapping("/user")
     public String createUser(@ModelAttribute("user") User user) {
         userService.save(user);
-        return "redirect:/admin";
+        return REDIRECT;
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("admin/{id}")
     public String deleteUserById(@PathVariable("id") Long id) {
         userService.delete(id);
-        return "redirect:/admin";
+        return REDIRECT;
     }
 }
