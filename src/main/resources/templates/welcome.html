@@ -7,16 +7,7 @@
     <title>Admin</title>
     <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet">
-    <script>
-        $(document).ready(function () {
-            $('#nav-new_user-tab').click(function () {
-                $('#nav-new_user').tab('show');
-            });
-        });
-
-    </script>
 </head>
-<body>
 <!--Шапка с логином и ролями-->
 <header>
     <nav class="navbar navbar-dark bg-dark navbar-fixed-top">
@@ -75,6 +66,7 @@
                                         role="tab"
                                         type="button">New User
                                 </button>
+
                             </div>
                         </nav>
 
@@ -269,53 +261,45 @@
                                 <div class="tab-pane fade" id="nav-new_user"
                                      aria-labelledby="nav-new_user-tab"
                                      role="tabpanel">
-                                     role="tabpanel">
-
                                     <h3><b>New user</b></h3>
-                                    <!-- "d-flex" элементы в ряд, "justify-content-center" выравнивает по центру горизонтально, "align-items-center" - по центру вертикально-->
-                                    <div class="d-flex justify-content-center align-items-center container">
-                                        <div class="row">
-                                            <div class="my-4">
-                                                <div class="p-3 border bg-highlight">
-                                                    <form th:method="POST"
-                                                          th:action="@{/new}"
-                                                          th:object="${user}">
+                                    <!-- Форма -->
+                                    <div class="p-3 border bg-highlight">
+                                        <form th:method="POST"
+                                              th:action="@{/new}"
+                                              th:object="${user}">
 
-                                                        <label for="create-email"><b>Email</b></label>
-                                                        <input class="form-control" id="create-email"
-                                                               th:name="email"
-                                                               th:type="text" required/>
-                                                        <br>
-                                                        <label for="create-username"><b>Login</b></label>
-                                                        <input class="form-control" id="create-username"
-                                                               th:name="username"
-                                                               th:type="text" required/>
-                                                        <br>
-                                                        <label for="create-password"><b>Password</b></label>
-                                                        <input class="form-control" id="create-password"
-                                                               th:name="password"
-                                                               th:type="password"
-                                                               placeholder="Password" required/>
-                                                        <br>
-                                                        <span><b>Role</b></span>
-                                                        <select aria-label="Default select example"
-                                                                class="form-select"
-                                                                th:name="roles" required>
-                                                            <option th:each="role : ${allRoles}"
-                                                                    th:value="${role.getId()}"
-                                                                    th:switch="${role.getName()}">
-                                                                <span th:case="'ROLE_ADMIN'">ADMIN</span>
-                                                                <span th:case="'ROLE_USER'">USER</span>
-                                                            </option>
-                                                        </select>
-                                                        <br><br>
-                                                        <button class="btn btn-success btn-lg" th:type="submit"
-                                                                value="Add user">Add user
-                                                        </button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
+                                            <label for="create-email"><b>Email</b></label>
+                                            <input class="form-control" id="create-email"
+                                                   th:name="email"
+                                                   th:type="text" required/>
+                                            <br>
+                                            <label for="create-username"><b>Login</b></label>
+                                            <input class="form-control" id="create-username"
+                                                   th:name="username"
+                                                   th:type="text" required/>
+                                            <br>
+                                            <label for="create-password"><b>Password</b></label>
+                                            <input class="form-control" id="create-password"
+                                                   th:name="password"
+                                                   th:type="password"
+                                                   placeholder="Password" required/>
+                                            <br>
+                                            <span><b>Role</b></span>
+                                            <select aria-label="Default select example"
+                                                    class="form-select"
+                                                    th:name="roles" required>
+                                                <option th:each="role : ${allRoles}"
+                                                        th:value="${role.getId()}"
+                                                        th:switch="${role.getName()}">
+                                                    <span th:case="'ROLE_ADMIN'">ADMIN</span>
+                                                    <span th:case="'ROLE_USER'">USER</span>
+                                                </option>
+                                            </select>
+                                            <br><br>
+                                            <button class="btn btn-success btn-lg" th:type="submit"
+                                                    value="Add user">Add user
+                                            </button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
