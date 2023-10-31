@@ -30,6 +30,11 @@ public class AdminController {
         return "welcome";
     }
 
+    @GetMapping()
+    public String getLoginPage(){
+        return REDIRECT;
+    }
+
     @PatchMapping("/user/{id}")
     public String updateUser(@ModelAttribute("user") User user) {
         userService.update(user);
