@@ -34,13 +34,15 @@
     <div class="row">
 
         <!--- на странице будет 2 колонки шириной 3 и 9 (макс.ширина 12)--->
-        <div class="col-3">
+        <div class="col-1">
             <!--- Устанавливаем навигацию с вертикальными "подушками"--->
             <div aria-orientation="vertical" class="nav flex-column nav-pills" id="v-pills-tab" role="tablist">
+
                 <a aria-controls="v-pills-admin" aria-selected="true"
-                   class="nav-link" href="/admin"
+                   class="nav-link active" href="/admin"
                    role="tab" sec:authorize="hasAuthority('ROLE_ADMIN')">Admin</a>
-                <a aria-controls="v-pills-user" aria-selected="false" class="nav-link active"
+
+                <a aria-controls="v-pills-user" aria-selected="false" class="nav-link"
                    href="/user"
                    role="tab" sec:authorize="hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')">User</a>
             </div>
@@ -52,8 +54,9 @@
                     <div aria-labelledby="v-pills-admin-tab" class="tab-pane fade show active" id="v-pills-admin"
                          role="tabpanel">
 
-                        <!--вкладка Users Table-->
+
                         <nav>
+                            <!--вкладка Users Table-->
                             <div class="nav nav-tabs" id="nav-tab" role="tablist">
                                 <button aria-controls="nav-users_table" class="nav-link active" aria-selected="true"
                                         data-bs-target="#nav-users_table" data-bs-toggle="tab" id="nav-users_table-tab"
@@ -61,7 +64,6 @@
                                 </button>
 
                                 <!--вкладка New User-->
-
                                 <button aria-controls="nav-new_user" class="nav-link" aria-selected="false"
                                         data-bs-target="#nav-new_user" data-bs-toggle="tab" id="nav-new_user-tab"
                                         role="tab"
@@ -161,14 +163,16 @@
                                                             <span><b>Check role</b></span>
                                                             <select aria-label="Default select example"
                                                                     class="form-select"
-                                                                    th:name="roles" required>
+                                                                    th:name="roles" required multiple>
                                                                 <option th:each="role : ${allRoles}"
                                                                         th:value="${role.getId()}"
-                                                                        th:switch="${role.getName()}">
+                                                                        th:switch="${role.getName()}"
+                                                                        th:attr="multiple=${true}">
                                                                     <span th:case="'ROLE_ADMIN'">ADMIN</span>
                                                                     <span th:case="'ROLE_USER'">USER</span>
                                                                 </option>
                                                             </select>
+
 
                                                             <!-- Подвал модального окна Edit -->
                                                             <div class="modal-footer">
