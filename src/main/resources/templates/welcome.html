@@ -54,7 +54,6 @@
                     <div aria-labelledby="v-pills-admin-tab" class="tab-pane fade show active" id="v-pills-admin"
                          role="tabpanel">
 
-
                         <nav>
                             <!--вкладка Users Table-->
                             <div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -63,14 +62,12 @@
                                         role="tab" type="button">Users table
                                 </button>
 
-                                <!--вкладка New User-->
-                                <button aria-controls="nav-new_user" class="nav-link" aria-selected="false"
-                                        data-bs-target="#nav-new_user" data-bs-toggle="tab" id="nav-new_user-tab"
-                                        role="tab"
+                                <!-- Кнопка New User -->
+                                <button class="nav-link" data-target="#newUserModal" data-toggle="modal"
                                         type="button">New User
                                 </button>
-
                             </div>
+
                         </nav>
 
                         <!--User's List-->
@@ -103,7 +100,6 @@
                                             </a>
                                         </td>
 
-
                                         <td>
                                             <a class="btn btn-danger" th:href="@{/delete/{id}(id=${user.getId()})}"
                                                data-toggle="modal" data-target="#deleteModal"
@@ -132,7 +128,6 @@
                                                           th:method="PATCH"
                                                           th:object="${user}">
                                                         <div class="modal-body text-center">
-
                                                             <br>
                                                             <!---Поле Id будет отображаться, но не будет доступно для корректировки-->
                                                             <label for="edit-id"><b>Id</b></label>
@@ -173,7 +168,6 @@
                                                                 </option>
                                                             </select>
 
-
                                                             <!-- Подвал модального окна Edit -->
                                                             <div class="modal-footer">
                                                                 <button class="btn btn-secondary"
@@ -189,7 +183,6 @@
                                                 </div>
                                             </div>
                                         </div>
-
 
                                         <!-- Модальное окно Delete -->
                                         <div class="modal fade" id="deleteModal"
@@ -212,7 +205,6 @@
                                                           th:method="DELETE"
                                                           th:object="${user}">
                                                         <div class="modal-body text-center">
-
 
                                                             <!---Поле Id будет отображаться, но не будет доступно для корректировки-->
                                                             <label for="delete-id"><b>Id</b></label>
@@ -252,56 +244,71 @@
                                                 </div>
                                             </div>
                                         </div>
-
-
                                     </tr>
                                     </tbody>
                                 </table>
 
+                                <!-- Модальное окно New User -->
+                                <div class="modal fade" id="newUserModal" tabindex="-1" role="dialog"
+                                     aria-labelledby="newUserModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
 
-                                <!-- NEW USER-->
-                                <div class="tab-pane fade" id="nav-new_user"
-                                     aria-labelledby="nav-new_user-tab"
-                                     role="tabpanel">
-                                    <h3><b>New user</b></h3>
-                                    <!-- Форма -->
-                                    <div class="p-3 border bg-highlight">
-                                        <form th:method="POST"
-                                              th:action="@{/new}"
-                                              th:object="${user}">
+                                            <!-- Заголовок модального окна -->
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="newUserModalLabel">New User</h5>
+                                                <button class="close" type="button" data-bs-dismiss="modal"
+                                                        aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
 
-                                            <label for="create-email"><b>Email</b></label>
-                                            <input class="form-control" id="create-email"
-                                                   th:name="email"
-                                                   th:type="text" required/>
-                                            <br>
-                                            <label for="create-username"><b>Login</b></label>
-                                            <input class="form-control" id="create-username"
-                                                   th:name="username"
-                                                   th:type="text" required/>
-                                            <br>
-                                            <label for="create-password"><b>Password</b></label>
-                                            <input class="form-control" id="create-password"
-                                                   th:name="password"
-                                                   th:type="password"
-                                                   placeholder="Password" required/>
-                                            <br>
-                                            <span><b>Role</b></span>
-                                            <select aria-label="Default select example"
-                                                    class="form-select"
-                                                    th:name="roles" required>
-                                                <option th:each="role : ${allRoles}"
-                                                        th:value="${role.getId()}"
-                                                        th:switch="${role.getName()}">
-                                                    <span th:case="'ROLE_ADMIN'">ADMIN</span>
-                                                    <span th:case="'ROLE_USER'">USER</span>
-                                                </option>
-                                            </select>
-                                            <br><br>
-                                            <button class="btn btn-success btn-lg" th:type="submit"
-                                                    value="Add user">Add user
-                                            </button>
-                                        </form>
+                                            <!-- Тело модального окна -->
+                                            <div class="modal-body">
+                                                <!-- Форма -->
+                                                <form th:method="POST" th:action="@{/new}" th:object="${user}">
+
+                                                    <label for="create-email"><b>Email</b></label>
+                                                    <input class="form-control" id="create-email"
+                                                           th:name="email"
+                                                           th:type="text" required/>
+                                                    <br>
+                                                    <label for="create-username"><b>Login</b></label>
+                                                    <input class="form-control" id="create-username"
+                                                           th:name="username"
+                                                           th:type="text" required/>
+                                                    <br>
+                                                    <label for="create-password"><b>Password</b></label>
+                                                    <input class="form-control" id="create-password"
+                                                           th:name="password"
+                                                           th:type="password"
+                                                           placeholder="Password" required/>
+                                                    <br>
+                                                    <span><b>Role</b></span>
+                                                    <select aria-label="Default select example"
+                                                            class="form-select"
+                                                            th:name="roles" required multiple>
+                                                        <option th:each="role : ${allRoles}"
+                                                                th:value="${role.getId()}"
+                                                                th:switch="${role.getName()}"
+                                                                th:attr="multiple=${true}">
+                                                            <span th:case="'ROLE_ADMIN'">ADMIN</span>
+                                                            <span th:case="'ROLE_USER'">USER</span>
+                                                        </option>
+                                                    </select>
+                                                    <br><br>
+                                                    <button class="btn btn-success btn-lg" th:type="submit"
+                                                            value="Add user">Add user
+                                                    </button>
+                                                </form>
+                                            </div>
+                                            <!-- Подвал модального окна -->
+                                            <div class="modal-footer">
+                                                <button class="btn btn-secondary"
+                                                        data-dismiss="modal"
+                                                        type="button">Close
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -311,18 +318,17 @@
             </div>
         </div>
     </div>
-</div>
 
 
-<script crossorigin="anonymous"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script crossorigin="anonymous"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script crossorigin="anonymous"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script crossorigin="anonymous"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script crossorigin="anonymous"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script crossorigin="anonymous"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 
 </body>
