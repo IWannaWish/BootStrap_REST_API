@@ -42,7 +42,7 @@ public class AdminController {
     }
 
     @GetMapping("/new")
-    public String getNewUserPage(Model model, User user) {
+    public String getNewUserPage(Model model) {
         model.addAttribute("user", new User());
         model.addAttribute("roles", roleService.findAll());
         return REDIRECT;

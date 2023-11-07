@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -27,12 +26,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getAllUsers() {
         return userRepository.findAll();
-    }
-
-    @Transactional(readOnly = true)
-    @Override
-    public User findById(Long id) {
-        return userRepository.findById(id).orElseThrow(() -> new NullPointerException("Значение не найдено в базе данных"));
     }
 
     @Override
