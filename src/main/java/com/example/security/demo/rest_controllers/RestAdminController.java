@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/admin/api")
+@RequestMapping("/api/admin/users")
 public class RestAdminController {
     private final UserService userService;
 
@@ -18,31 +18,31 @@ public class RestAdminController {
     public RestAdminController(UserService userService) {
         this.userService = userService;
     }
-    @GetMapping("/users")
+    @GetMapping()
     public ResponseEntity<List<User>> showAllUser(){
         List<User> users = userService.getAllUsers();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
-    @GetMapping("/users/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<User> showUserById(@PathVariable Long id){
         User user = userService.findUserById(id);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
 
-    @PostMapping("/users")
+    @PostMapping()
     public ResponseEntity<User> saveUser(@RequestBody User user){
         userService.save(user);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @PutMapping("/users")
+    @PutMapping()
     public ResponseEntity<User> updateUser(@RequestBody User user){
        userService.update(user);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @DeleteMapping("/users/{id}")
+    @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable Long id){
         userService.delete(id);
     }
