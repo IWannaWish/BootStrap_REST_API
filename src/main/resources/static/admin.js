@@ -85,6 +85,13 @@ async function editUser() {
         roles: roles
     }
 
+    if (password === '') {
+        const passwordField = document.getElementById('editPassword');
+        passwordField.classList.add('is-invalid');
+        return;
+    }
+
+
     await fetch(url, {
         method: 'PUT',
         headers: {
@@ -96,6 +103,7 @@ async function editUser() {
         getAllUsers();
     })
 }
+
 
 // новый список всех
 const usersList = document.getElementById('users')
@@ -173,7 +181,6 @@ async function addUser() {
         password: addPassword,
         roles: addRoles
     }
-    console.log(user)
     await fetch(url, {
         method: "POST",
         headers: {
