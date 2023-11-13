@@ -60,20 +60,15 @@
 
                                 <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home"
                                    role="tab" aria-controls="nav-home" aria-selected="true">Users table</a>
-
-
                                 <!-- Кнопка New User -->
                                 <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile"
                                    role="tab" aria-controls="nav-profile" aria-selected="false">New User</a>
                             </div>
-
                         </nav>
-
                         <!--User's List-->
                         <div class="tab-content" id="nav-tabContent">
                             <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
                                  aria-labelledby="nav-home-tab">
-
                                 <div class="card">
                                     <div class="card-header">
                                         <h3>All users</h3>
@@ -98,10 +93,7 @@
                                     </div>
                                 </div>
                             </div>
-
-
                             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-
                                 <!--add new user-->
                                 <div class="card">
                                     <div class="card-header">
@@ -114,7 +106,6 @@
                                                     <label for="usernameAdd">Username</label>
                                                     <input name="username" type="text" class="form-control form-control-sm" id="usernameAdd" placeholder="username">
                                                 </div>
-
                                                 <div class="form-group">
                                                     <label for="emailAdd">Email</label>
                                                     <input name="email" type="email" class="form-control form-control-sm" id="emailAdd" aria-describedby="emailHelp" placeholder="Enter email">
@@ -135,15 +126,11 @@
                                                         </option>
                                                     </select>
                                                 </div>
-
                                                 <button type="submit" class="btn btn-success" onclick="event.preventDefault(); addUser()">Create</button>
                                             </form>
-
-
                                         </blockquote>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -152,7 +139,6 @@
         </div>
     </div>
 </div>
-
 
 <!-- Modal edit -->
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
@@ -166,8 +152,6 @@
                     </button>
                 </div>
                 <div class="modal-body">
-
-
                     <div class="form-group">
                         <label for="editId">ID</label>
                         <input name="id" disabled="true" type="text" value="*{id}" class="form-control form-control-sm" id="editId" aria-describedby="IDHelp" placeholder="Enter ID">
@@ -199,11 +183,7 @@
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary" onclick="event.preventDefault(); editUser()">Save changes</button>
                     </div>
-
-
-
                 </div>
-
             </div>
         </form>
     </div>
@@ -220,7 +200,6 @@
                 </button>
             </div>
             <div class="modal-body">
-
                 <form>
                     <div class="form-group">
                         <label for="idDelete">ID</label>
@@ -230,7 +209,6 @@
                         <label for="usernameDelete">Username</label>
                         <input disabled="true" readonly type="text" class="form-control form-control-sm" id="usernameDelete" placeholder="Username">
                     </div>
-
                     <div class="form-group">
                         <label for="emailDelete">Email</label>
                         <input disabled="true" type="email" class="form-control form-control-sm" id="emailDelete" aria-describedby="emailHelp" placeholder="Enter email">
@@ -247,13 +225,10 @@
                         <button type="submit" class="btn btn-danger" onclick="event.preventDefault(); deleteUser()">Delete</button>
                     </div>
                 </form>
-
             </div>
-
         </div>
     </div>
 </div>
-
 
 <script crossorigin="anonymous"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -270,7 +245,6 @@
     $(document).ready(function() {
         getAllUsers();
     });
-
 </script>
 </body>
 
